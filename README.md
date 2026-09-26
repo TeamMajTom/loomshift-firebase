@@ -52,3 +52,5 @@ npm run dev         # in a second terminal
   review every change to this file.
 - `apphosting.yaml` sets the limits for Firebase App Hosting, where this app is
   deployed once a Firebase project is connected.
+
+Live on Firebase App Hosting; every merge to main deploys by itself.
