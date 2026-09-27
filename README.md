@@ -48,8 +48,9 @@ npm run dev         # in a second terminal
 - `lib/firebase.ts` builds the Firebase clients. With no
   `NEXT_PUBLIC_FIREBASE_PROJECT_ID` set it uses the emulators.
 - `firestore.rules` is the security policy. It is closed by default: each signed-in
-  person can read and write only their own `notes`. Open a new path on purpose, and
-  review every change to this file.
+  person can read and write only their own `notes`, and every signed-in person can
+  read the public `questions` list but only edit or delete their own. Open a new
+  path on purpose, and review every change to this file.
 - `apphosting.yaml` sets the limits for Firebase App Hosting, where this app is
   deployed once a Firebase project is connected.
 
