@@ -56,6 +56,17 @@ export default function SignIn() {
 
   return (
     <form onSubmit={signIn} className="flex max-w-sm flex-col gap-3">
+      <button
+        type="button"
+        disabled={busy}
+        className="w-full rounded border px-3 py-2"
+        onClick={() =>
+          void run(() => signInWithPopup(getFirebase().auth, new GoogleAuthProvider()))
+        }
+      >
+        Continue with Google
+      </button>
+      <p className="text-center text-sm">or</p>
       <label className="flex flex-col gap-1">
         Email
         <input
@@ -90,16 +101,6 @@ export default function SignIn() {
           }
         >
           Create account
-        </button>
-        <button
-          type="button"
-          disabled={busy}
-          className="rounded border px-3 py-1"
-          onClick={() =>
-            void run(() => signInWithPopup(getFirebase().auth, new GoogleAuthProvider()))
-          }
-        >
-          Continue with Google
         </button>
       </div>
       {error ? <p role="alert">{error}</p> : null}
