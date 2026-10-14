@@ -11,7 +11,7 @@ export default function App() {
       {(user) => (
         <>
           <Profile user={user} />
-          <Questions uid={user.uid} />
+          <Questions uid={user.uid} authorName={user.displayName ?? user.email ?? 'Author'} />
           <Notes uid={user.uid} />
         </>
       )}
