@@ -14,6 +14,8 @@ import { useEffect, useState, type FormEvent } from 'react';
 
 import { getFirebase } from '@/lib/firebase';
 
+import Answers from './Answers';
+
 interface Question {
   id: string;
   uid: string;
@@ -26,7 +28,7 @@ interface Question {
  * Every signed-in author's questions, visible to anyone signed in.
  * `firestore.rules` lets only the author edit or delete their own question.
  */
-export default function Questions({ uid }: { uid: string }) {
+export default function Questions({ uid, authorName }: { uid: string; authorName: string }) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -179,6 +181,7 @@ export default function Questions({ uid }: { uid: string }) {
                 ) : null}
               </div>
               <p>{question.body}</p>
+              <Answers questionId={question.id} uid={uid} authorName={authorName} />
             </li>
           ),
         )}
