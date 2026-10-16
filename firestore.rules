@@ -35,6 +35,26 @@ service cloud.firestore {
           && resource.data.uid == request.auth.uid
           && request.resource.data.uid == request.auth.uid;
         allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
+
+        // One upvote per person (the doc id is the voter's uid), never on their own answer.
+        match /votes/{voterId} {
+          allow read: if request.auth != null;
+          allow create: if request.auth != null
+            && voterId == request.auth.uid
+            && request.resource.data.uid == request.auth.uid
+            && get(/databases/$(database)/documents/questions/$(questionId)/answers/$(answerId)).data.uid != request.auth.uid;
+          allow delete: if request.auth != null && voterId == request.auth.uid;
+        }
+      }
+
+      // One upvote per person (the doc id is the voter's uid), never on their own question.
+      match /votes/{voterId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null
+          && voterId == request.auth.uid
+          && request.resource.data.uid == request.auth.uid
+          && get(/databases/$(database)/documents/questions/$(questionId)).data.uid != request.auth.uid;
+        allow delete: if request.auth != null && voterId == request.auth.uid;
       }
     }
 

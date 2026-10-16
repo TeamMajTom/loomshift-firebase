@@ -14,6 +14,8 @@ import { useEffect, useState, type FormEvent } from 'react';
 
 import { getFirebase } from '@/lib/firebase';
 
+import Votes from './Votes';
+
 interface Answer {
   id: string;
   uid: string;
@@ -154,6 +156,11 @@ export default function Answers({
                 ) : null}
               </div>
               <p>{a.body}</p>
+              <Votes
+                parentPath={['questions', questionId, 'answers', a.id]}
+                ownerUid={a.uid}
+                uid={uid}
+              />
             </li>
           ),
         )}
